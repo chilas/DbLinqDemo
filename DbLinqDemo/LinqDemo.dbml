@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="LinqDemo" Class="LinqDemoDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\LinqDemo.mdf;Integrated Security=True;Connect Timeout=30" SettingsObjectName="DbLinqDemo.Properties.Settings" SettingsPropertyName="LinqDemoConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.TblCustomer" Member="TblCustomers">
+    <Type Name="TblCustomer">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Firstname" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="Lastname" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Association Name="TblCustomer_TblInvoice" Member="TblInvoices" ThisKey="Id" OtherKey="CustomerId" Type="TblInvoice" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TblInvoice" Member="TblInvoices">
+    <Type Name="TblInvoice">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CustomerId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ProductId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreationDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="TblCustomer_TblInvoice" Member="TblCustomer" ThisKey="CustomerId" OtherKey="Id" Type="TblCustomer" IsForeignKey="true" />
+      <Association Name="TblProduct_TblInvoice" Member="TblProduct" ThisKey="ProductId" OtherKey="Id" Type="TblProduct" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TblProduct" Member="TblProducts">
+    <Type Name="TblProduct">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Decimal" DbType="Decimal(5,2) NOT NULL" CanBeNull="false" />
+      <Column Name="Currency" Type="System.String" DbType="VarChar(3) NOT NULL" CanBeNull="false" />
+      <Column Name="CreationDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="TblProduct_TblInvoice" Member="TblInvoices" ThisKey="Id" OtherKey="ProductId" Type="TblInvoice" />
+    </Type>
+  </Table>
+</Database>
